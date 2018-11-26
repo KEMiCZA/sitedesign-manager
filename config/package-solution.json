@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "sitedesigns-manager-client-side-solution",
+    "id": "9ea82fb6-6af4-4080-a1fe-a2abab4eb6c1",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "isDomainIsolated": false
+  },
+  "paths": {
+    "zippedPackage": "solution/sitedesigns-manager.sppkg"
+  }
+}

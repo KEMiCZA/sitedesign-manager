@@ -1,0 +1,12 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "isCreatingSolution": true,
+    "environment": "spo",
+    "version": "1.7.0",
+    "libraryName": "sitedesigns-manager",
+    "libraryId": "9ea82fb6-6af4-4080-a1fe-a2abab4eb6c1",
+    "packageManager": "npm",
+    "componentType": "webpart",
+    "isDomainIsolated": false
+  }
+}

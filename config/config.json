@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "sitedesigns-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/sitedesigns/SitedesignsManagerWebPart.js",
+          "manifest": "./src/webparts/sitedesigns/SitedesignsManagerWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "SitedesignsWebPartStrings": "lib/webparts/sitedesigns/loc/{locale}.js"
+  }
+}
