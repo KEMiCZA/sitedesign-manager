@@ -7,7 +7,9 @@ export function createStore(): Store<any> {
         sitedesigns: [],
         sitescripts: [],
         selectedSiteDesign: null,
-        loading: true
+        loading: true,
+        siteDesignsUpdatedVersion: 0, // increment this after updating a SD so we know we can refresh our component
+        siteScriptsUpdatedVersion: 0, // increment this after updating a SS so we know we can refresh our component
     };
 
     const middleWare = [thunk];

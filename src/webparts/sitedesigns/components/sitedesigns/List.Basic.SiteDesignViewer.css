@@ -1,3 +1,4 @@
+
 .ms-SiteDesignViewer-itemCell {
     min-height: 54px;
     padding: 10px;
@@ -39,6 +40,11 @@
 .ms-SiteDesignViewer-itemImage {
     -ms-flex-negative: 0;
     flex-shrink: 0
+}
+
+.ms-SiteDesignViewer-itemContentSelection {
+    min-width: 5px;
+    margin-right: 3px;
 }
 
 .ms-SiteDesignViewer-itemContent {

@@ -3,17 +3,27 @@ import SitedesignsViewer from './sitedesigns/SitedesignsViewer';
 import SitescriptsViewer from './sitescripts/SitescriptsViewer';
 import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { IOverflowSetItemProps, OverflowSet } from 'office-ui-fabric-react/lib/OverflowSet';
 import { connect } from 'react-redux';
 import { loadInitialSiteDesignAndScripts } from '../actions/sitedesigns-manager-actions';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
-import SiteDesignEditor from './sitedesigns/SiteDesignEditor';
+import { SiteDesignForm } from './sitedesigns/SiteDesignForm';
+import { FormTypeEnum } from './enums/FormTypeEnum';
+import styles from './Sitedesigns.module.scss';
 
-export class SiteDesignsManager extends React.Component<any, {}> {
+export interface SiteDesignsManagerState {
+  isCreatingNewSiteDesign: boolean;
+  isCreatingNewSiteScript: boolean;
+}
+
+export class SiteDesignsManager extends React.Component<any, any> {
   constructor(props) {
     super(props);
+    this.state = {
+      isCreatingNewSiteDesign: false,
+      isCreatingNewSiteScript: false
+    };
+
     this._reloadAll = this._reloadAll.bind(this);
     this._onRenderItem = this._onRenderItem.bind(this);
   }
@@ -23,8 +33,11 @@ export class SiteDesignsManager extends React.Component<any, {}> {
   }
 
   public render(): React.ReactElement<{}> {
+    const newSiteDesignForm = !this.state.isCreatingNewSiteDesign ? (<div></div>) : (<SiteDesignForm doneCallback={() => this.setState({ ...this.state, isCreatingNewSiteDesign: false, isCreatingNewSiteScript: false })} formType={FormTypeEnum.New} />);
+
     return (
       <div>
+        {newSiteDesignForm}
         <OverflowSet
           items={[
             {
@@ -40,12 +53,14 @@ export class SiteDesignsManager extends React.Component<any, {}> {
                   {
                     key: 'siteDesign',
                     name: 'Site Design',
-                    icon: 'Design'
+                    icon: 'Design',
+                    onClick: () => this.setState({ ...this.state, isCreatingNewSiteDesign: true, isCreatingNewSiteScript: false })
                   },
                   {
                     key: 'siteScript',
                     name: 'Site Script',
-                    icon: 'Script'
+                    icon: 'Script',
+                    onClick: () => this.setState({ ...this.state, isCreatingNewSiteDesign: false, isCreatingNewSiteScript: true })
                   }
                 ]
               }
@@ -82,29 +97,8 @@ export class SiteDesignsManager extends React.Component<any, {}> {
             {this.props.loading ? <Spinner size={SpinnerSize.large} label="Loading site scripts..." ariaLive="assertive" /> : <SitescriptsViewer />}
           </PivotItem>
         </Pivot>
-
-        <Dialog
-          hidden={!this.props.siteDesignEditorVisible}
-          onDismiss={this._closeDialog}
-          dialogContentProps={{
-            type: DialogType.normal,
-            title: 'Site Design Editor',
-          }}
-          modalProps={{
-            titleAriaId: 'myLabelId',
-            subtitleAriaId: 'mySubTextId',
-            isBlocking: false,
-            containerClassName: 'ms-dialogMainOverride'
-          }}
-        >
-          <SiteDesignEditor />
-        </Dialog>
-
       </div >
     );
-  }
-
-  private _closeDialog = (): void => {
   }
 
   private _reloadAll = (): void => {
